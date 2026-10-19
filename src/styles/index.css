@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/* ---------- Palette: ONLY these four, plus opacity ---------- */
+@property --bg { syntax: "<color>"; inherits: true; initial-value: #37353E; }
+@property --fg { syntax: "<color>"; inherits: true; initial-value: #D3DAD9; }
+@property --acc { syntax: "<color>"; inherits: true; initial-value: #715A5A; }
+
+:root {
+  --c1: #37353E;
+  --c2: #44444E;
+  --c3: #715A5A;
+  --c4: #D3DAD9;
+  /* c3 deepened toward c1 (a blend of palette colours) so c4 text stays AA */
+  --c3d: color-mix(in srgb, var(--c3) 70%, var(--c1));
+  /* secondary-text opacity: 0.82 keeps WCAG AA on c1/c2/c4; c3 surfaces need full strength */
+  --subtle: 0.82;
+  --bg: var(--c1);
+  --fg: var(--c4);
+  --acc: var(--c3);
+  --header-h: 72px;
+  color-scheme: dark;
+  transition: --bg 0.9s cubic-bezier(0.65, 0, 0.35, 1), --fg 0.9s cubic-bezier(0.65, 0, 0.35, 1), --acc 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+:root[data-tone="c1"] { --bg: var(--c1); --fg: var(--c4); --acc: var(--c3); }
+:root[data-tone="c2"] { --bg: var(--c2); --fg: var(--c4); --acc: var(--c3); }
+:root[data-tone="c3"] { --bg: var(--c3d); --fg: var(--c4); --acc: var(--c1); --subtle: 1; }
+:root[data-tone="c4"] { --bg: var(--c4); --fg: var(--c1); --acc: var(--c3); }
+
+@theme {
+  --color-*: initial;
+  --color-c1: #37353E;
+  --color-c2: #44444E;
+  --color-c3: #715A5A;
+  --color-c4: #D3DAD9;
+  --font-display: "Unbounded", ui-rounded, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-wipe: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 11s ease-in-out infinite;
+  --animate-orbit: spin 38s linear infinite;
+  --animate-orbit-rev: spin 38s linear infinite reverse;
+  --animate-spin-slow: spin 16s linear infinite;
+  --animate-drift: drift 28s ease-in-out infinite alternate;
+  --animate-drift-2: drift2 34s ease-in-out infinite alternate;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  --animate-blink: blink 5s ease-in-out infinite;
+  --animate-grain: grain 0.9s steps(6) infinite;
+  --animate-scroll-dot: scroll-dot 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+
+  @keyframes float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); } 50% { transform: translate3d(0, -14px, 0) rotate(2deg); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes drift { 0% { transform: translate3d(-8%, -6%, 0) scale(1); } 100% { transform: translate3d(10%, 8%, 0) scale(1.15); } }
+  @keyframes drift2 { 0% { transform: translate3d(8%, 6%, 0) scale(1.1); } 100% { transform: translate3d(-10%, -4%, 0) scale(0.95); } }
+  @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.7; } 100% { transform: scale(1.9); opacity: 0; } }
+  @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+  @keyframes grain {
+    0% { transform: translate3d(0, 0, 0); } 20% { transform: translate3d(-4%, 3%, 0); } 40% { transform: translate3d(3%, -5%, 0); }
+    60% { transform: translate3d(-6%, -2%, 0); } 80% { transform: translate3d(5%, 4%, 0); } 100% { transform: translate3d(0, 0, 0); }
+  }
+  @keyframes scroll-dot { 0% { transform: translateY(0); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(18px); opacity: 0; } }
+}
+
+@theme inline {
+  --color-fg: var(--fg);
+  --color-bg: var(--bg);
+  --color-acc: var(--acc);
+}
+
+/* ---------- Base ---------- */
+@layer base {
+html { background: var(--c1); scroll-behavior: auto; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  min-height: 100svh;
+}
+::selection { background: var(--c3); color: var(--c4); }
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; border-radius: 10px; }
+button, [role="button"] { cursor: pointer; }
+img, svg { max-width: 100%; }
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
+}
+
+html.has-cursor, html.has-cursor * { cursor: none !important; }
+html.has-cursor input:not([type="range"]), html.has-cursor textarea, html.has-cursor select { cursor: text !important; }
+
+/* ---------- Surfaces ---------- */
+@utility glass {
+  background: linear-gradient(150deg, color-mix(in srgb, var(--fg) 10%, transparent), color-mix(in srgb, var(--fg) 4%, transparent));
+  border: 1px solid color-mix(in srgb, var(--fg) 15%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+  backdrop-filter: blur(18px) saturate(1.1);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--fg) 18%, transparent),
+    inset 0 0 40px color-mix(in srgb, var(--fg) 5%, transparent),
+    0 30px 60px -36px color-mix(in srgb, var(--c1) 75%, transparent);
+}
+@utility hairline { border: 1px solid color-mix(in srgb, var(--fg) 16%, transparent); }
+@utility hairline-strong { border: 1px solid color-mix(in srgb, var(--fg) 30%, transparent); }
+@utility clay {
+  box-shadow:
+    0 30px 60px -28px color-mix(in srgb, var(--c1) 80%, transparent),
+    inset 0 2px 0 color-mix(in srgb, var(--c4) 20%, transparent),
+    inset 0 -14px 34px color-mix(in srgb, var(--c1) 26%, transparent);
+}
+@utility inner-glow { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fg) 12%, transparent), inset 0 0 50px color-mix(in srgb, var(--fg) 8%, transparent); }
+/* Fill with the background colour and paint the stroke underneath: hides the variable font's overlapping inner contours */
+@utility text-outline { color: var(--bg); -webkit-text-stroke: 3px var(--fg); paint-order: stroke fill; }
+@utility text-muted { color: color-mix(in srgb, var(--fg) calc(var(--subtle) * 100%), transparent); }
+@utility subtle { opacity: var(--subtle); }
+@utility dashed-frame { border: 2px dashed color-mix(in srgb, var(--fg) 34%, transparent); }
+
+/* Local surface tones: set foreground/background for a card or band */
+@utility tone-c1 { --fg: var(--c4); --acc: var(--c3); --bg: var(--c1); --subtle: 0.82; background-color: var(--c1); color: var(--c4); }
+@utility tone-c2 { --fg: var(--c4); --acc: var(--c3); --bg: var(--c2); --subtle: 0.82; background-color: var(--c2); color: var(--c4); }
+@utility tone-c3 { --fg: var(--c4); --acc: var(--c1); --bg: var(--c3d); --subtle: 1; background: linear-gradient(160deg, color-mix(in srgb, var(--c3) 80%, var(--c1)), var(--c3d)); color: var(--c4); }
+@utility tone-c4 { --fg: var(--c1); --acc: var(--c3); --bg: var(--c4); --subtle: 0.82; background-color: var(--c4); color: var(--c1); }
+
+@utility gradient-text {
+  background: linear-gradient(100deg, var(--fg) 0%, color-mix(in srgb, var(--fg) 62%, var(--acc)) 45%, var(--fg) 90%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(color-mix(in srgb, var(--fg) 18%, transparent) 1px, transparent 1.4px);
+  background-size: 28px 28px;
+}
+@utility line-grid {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--fg) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--fg) 7%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Typography scale (fluid) */
+@utility display-xl { font-family: var(--font-display); font-size: clamp(2.05rem, 1.35rem + 3.1vw, 4.35rem); line-height: 1.04; letter-spacing: -0.035em; font-weight: 600; }
+@utility display-lg { font-family: var(--font-display); font-size: clamp(1.75rem, 1.2rem + 2.3vw, 3.4rem); line-height: 1.06; letter-spacing: -0.03em; font-weight: 600; }
+@utility display-md { font-family: var(--font-display); font-size: clamp(1.3rem, 1.05rem + 1vw, 1.9rem); line-height: 1.15; letter-spacing: -0.02em; font-weight: 600; }
+@utility label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
+
+/* Range input */
+input[type="range"].range { -webkit-appearance: none; appearance: none; height: 28px; background: transparent; width: 100%; }
+input[type="range"].range::-webkit-slider-runnable-track { height: 6px; border-radius: 99px; background: linear-gradient(90deg, var(--fg) var(--p, 50%), color-mix(in srgb, var(--fg) 20%, transparent) var(--p, 50%)); }
+input[type="range"].range::-moz-range-track { height: 6px; border-radius: 99px; background: color-mix(in srgb, var(--fg) 20%, transparent); }
+input[type="range"].range::-moz-range-progress { height: 6px; border-radius: 99px; background: var(--fg); }
+input[type="range"].range::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -8px; border-radius: 50%; background: var(--fg); box-shadow: 0 0 0 6px color-mix(in srgb, var(--fg) 18%, transparent); transition: box-shadow .2s; }
+input[type="range"].range::-moz-range-thumb { width: 22px; height: 22px; border: 0; border-radius: 50%; background: var(--fg); }
+input[type="range"].range:focus-visible { outline: none; }
+input[type="range"].range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--fg); }
+
+/* Hide scrollbars on horizontal scrollers but keep them scrollable */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  :root { transition-duration: 0.3s; }
+}
