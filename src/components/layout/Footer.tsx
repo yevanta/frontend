@@ -128,7 +128,7 @@ export function Footer() {
 
         <div className="mt-14 flex flex-wrap items-center justify-between gap-6">
           <div className="flex flex-wrap items-center gap-3">
-            {footer.socials.map((s) => <SocialIcon key={s.label} {...s} />)}
+            {footer.socials.map((s) => <SocialIcon key={s.icon} {...s} />)}
             <a href={`mailto:${footer.email}`} className="ml-1 inline-flex min-h-12 items-center gap-2 rounded-full px-4 text-sm font-semibold hairline transition hover:bg-fg hover:text-bg">
               <Icon name="mail" size={16} />{footer.email}
             </a>
