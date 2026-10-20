@@ -54,7 +54,7 @@ export function Pricing() {
                       <p className="mt-7 font-display text-[clamp(1.9rem,2.6vw,2.5rem)] font-semibold leading-none tracking-tight">{p.priceLabel}</p>
                     )}
                     <div className="mt-4 rounded-2xl bg-fg/8 px-4 py-3">
-                      <p className="label text-[9px]">{p.basisLabel}</p>
+                      <p className="label text-[10px]">{p.basisLabel}</p>
                       <p className="mt-1 text-sm font-semibold leading-snug">{t.basis}</p>
                     </div>
                     <ul className="mt-6 flex-1 space-y-3">
@@ -83,7 +83,7 @@ export function Pricing() {
             <table className="w-full min-w-[620px] border-separate border-spacing-0 text-left">
               <thead>
                 <tr>
-                  <th scope="col" className="label sticky top-14 z-10 rounded-tl-[32px] bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] px-6 py-5 backdrop-blur-md">{p.compare.featureCol}</th>
+                  <th scope="col" className="label sticky top-14 font-medium z-10 rounded-tl-[32px] bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] px-6 py-5 backdrop-blur-md">{p.compare.featureCol}</th>
                   {p.compare.columns.map((c, i) => (
                     <th key={c} scope="col" className={cn('sticky top-14 z-10 bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] px-6 py-5 text-center font-display text-base font-semibold backdrop-blur-md', i === p.compare.columns.length - 1 && 'rounded-tr-[32px]')}>
                       {c}

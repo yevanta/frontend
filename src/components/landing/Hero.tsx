@@ -88,7 +88,7 @@ export function Hero() {
                 <motion.div key={s.label} variants={{ off: { opacity: 0, y: 16 }, on: { opacity: 1, y: 0 } }} className="glass min-w-0 rounded-[20px] px-3 py-3 sm:rounded-[22px] sm:px-4 sm:py-3.5">
                   <dt className="sr-only">{s.label}</dt>
                   <dd className="font-display text-xl font-semibold sm:text-2xl lg:text-3xl"><CountUp value={s.value} suffix={s.suffix} start={done} /></dd>
-                  <dd className="label mt-1 text-[9px] tracking-[0.1em] subtle sm:text-[10px] sm:tracking-[0.16em]">{s.label}</dd>
+                  <dd className="label mt-1 text-[10px] tracking-[0.08em] subtle sm:text-[10px] sm:tracking-[0.16em]">{s.label}</dd>
                 </motion.div>
               ))}
             </motion.dl>

@@ -9,13 +9,15 @@ AddDefaultCharset UTF-8
   RewriteEngine On
   RewriteBase /
 
-  # Force HTTPS. Uncomment once the SSL certificate is live.
-  # RewriteCond %{HTTPS} !=on
-  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # Force HTTPS for all traffic (also behind a proxy / load balancer that sets X-Forwarded-Proto).
+  # Requires a valid SSL certificate for the domain.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Pick ONE host. Uncomment to redirect www to the bare domain (or swap for the reverse).
-  # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-  # RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+  # One host: www.yevanta.com -> yevanta.com (matches the canonical tags)
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
   # /index.html -> / (one canonical URL for the home page)
   RewriteCond %{THE_REQUEST} \s/index\.html[\s?] [NC]

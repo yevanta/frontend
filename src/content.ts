@@ -493,6 +493,7 @@ export const footer = {
       { label: 'Privacy policy', to: routes.privacy },
       { label: 'Terms of service', to: routes.terms },
       { label: 'Cookie policy', to: routes.cookies },
+      { label: 'Sitemap', to: '/sitemap.xml' },
     ] },
   ],
   socials: [

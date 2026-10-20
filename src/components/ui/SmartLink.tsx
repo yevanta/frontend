@@ -33,6 +33,15 @@ export function SmartLink({ to, children, onClick, cursor, highlight, ...rest }:
     )
   }
 
+  // static files served next to the app (sitemap.xml, robots.txt, documents): a plain link, not a route
+  if (/^\/[^#?]*\.[a-z0-9]+$/i.test(to)) {
+    return (
+      <a href={to} onClick={onClick} {...rest}>
+        {children}
+      </a>
+    )
+  }
+
   const [path, hash] = to.split('#')
   const targetPath = path || pathname
   const samePage = targetPath === pathname && to !== '#'

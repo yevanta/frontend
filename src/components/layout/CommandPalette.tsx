@@ -146,9 +146,10 @@ export function CommandPalette() {
                     >
                       {i === active && <motion.span layoutId="pal-hl" className="absolute inset-0 rounded-2xl bg-c4" transition={{ type: 'spring', stiffness: 500, damping: 40 }} />}
                       <Icon name={it.icon} size={16} className="relative subtle" />
-                      <span className="relative flex-1">{it.label}</span>
-                      {it.current && <span className="label relative rounded-full bg-current/15 px-2 py-0.5 text-[9px]">{ui.paletteCurrent}</span>}
-                      <span className="label relative subtle">{it.hint}</span>
+                      <span className="relative min-w-0 flex-1 truncate">{it.label}</span>
+                      {it.current && <span className="label relative shrink-0 whitespace-nowrap rounded-full bg-current/15 px-2 py-0.5 text-[10px]">{ui.paletteCurrent}</span>}
+                      {/* the path hint gives way on narrow screens when the "you are here" badge is shown */}
+                      <span className={cn('label relative shrink-0 subtle', it.current && 'hidden sm:inline')}>{it.hint}</span>
                     </div>
                   </li>
                 )

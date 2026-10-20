@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { nav, routes, ui } from '../../content'
 import { events, useSectionTracker } from '../../lib/sections'
 import { cn } from '../../lib/utils'
+import { Icon } from '../ui/Icon'
 import { RollingNumber } from '../ui/Numbers'
 import { SmartLink } from '../ui/SmartLink'
 import { Logo } from './Logo'
@@ -53,6 +54,16 @@ export function Header() {
                 <span className="subtle">{pad(total)}</span>
               </span>
             )}
+            {/* phones/tablets: a Menu button opening the same section list as the quick jump */}
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event(events.openPalette))}
+              aria-haspopup="dialog"
+              className="label inline-flex min-h-11 items-center gap-2 rounded-full hairline px-4 transition hover:bg-fg/10 md:hidden"
+            >
+              <Icon name="menu" size={16} />
+              <span>{nav.menu}</span>
+            </button>
             <button
               type="button"
               onClick={() => window.dispatchEvent(new Event(events.openPalette))}

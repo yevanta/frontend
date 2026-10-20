@@ -219,7 +219,7 @@ function Simulator() {
       <div className="mx-auto max-w-7xl space-y-16">
         <Reveal className="flex flex-col justify-between gap-6 border-b border-c1/20 pb-8 md:flex-row md:items-end">
           <div className="space-y-3">
-            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-c3d">{s.eyebrow}</span>
+            <span className="font-mono text-xs font-medium uppercase tracking-widest text-c3d">{s.eyebrow}</span>
             <h2 className="font-display text-3xl font-bold tracking-tight md:text-5xl">{s.title}</h2>
           </div>
           <p className="max-w-md text-sm text-c1/85 md:text-base">{s.lead}</p>
@@ -249,7 +249,7 @@ function Simulator() {
                   step={x.step}
                   value={v[x.key]}
                   onChange={(e) => setV((o) => ({ ...o, [x.key]: Number(e.target.value) }))}
-                  className="w-full cursor-pointer accent-c3"
+                  className="h-6 w-full cursor-pointer accent-c3"
                 />
                 <div className="flex justify-between font-mono text-[10px] text-c1/75" aria-hidden>
                   <span>{x.minLabel}</span>
