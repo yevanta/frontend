@@ -10,7 +10,7 @@
  *   available integrations and configured workflow" (client wording); never claim it as a feature.
  * - Recommendations are "recommendation records" reviewed by people.
  * - Anything not yet known is clearly marked as a placeholder.
- * - NVIDIA technology appears on the product page only (see `technology`).
+ * - NVIDIA technology appears on the product page only (see `productPage`).
  */
 
 export type Tone = 'c1' | 'c2' | 'c3' | 'c4'
@@ -486,8 +486,8 @@ export const footer = {
     { title: 'Resources', links: [
       { label: 'Pricing', to: '/#pricing' },
       { label: 'FAQ', to: '/#faq' },
-      { label: 'Governance', to: '/product#governance' },
-      { label: 'Technology', to: '/product#technology' },
+      { label: 'Capabilities', to: '/product#capabilities' },
+      { label: 'NVIDIA SDK', to: '/product#sdk' },
     ] },
     { title: 'Legal', links: [
       { label: 'Privacy policy', to: routes.privacy },
@@ -520,210 +520,216 @@ export const cookie = {
 }
 
 /* ------------------------------------------------------------------ */
-/*  PRODUCT PAGE                                                       */
+/*  PRODUCT PAGE (client-supplied copy: keep wording as provided)      */
 /* ------------------------------------------------------------------ */
 
-export const productHero = {
-  id: 'product-hero',
-  label: 'The platform',
-  tone: 'c1' as Tone,
-  eyebrow: site.productName,
-  title: 'Everything Commercial Teams Need to Price ~Smarter~.',
-  body: 'Product and market records, price lists, competitor observations, recommendation review and model history in one console, with an approval trail behind every change.',
-  primary: { label: 'Open the Dashboard', to: site.dashboardUrl },
-  secondary: { label: 'See how it works', to: '#flow' },
-  mockLabel: 'Illustrative preview',
-  mock: {
-    brand: site.brand,
-    nav: ['Console', 'Registry', 'Pricing', 'Recommendations', 'Models'],
-    greeting: 'Commercial operations',
-    stats: [
-      { label: 'Pending approvals', value: 8, suffix: '' },
-      { label: 'Beyond threshold', value: 14, suffix: '' },
-      { label: 'Expiring price lists', value: 3, suffix: '' },
+export const productPage = {
+  /** Floating hint, bottom right (opens the quick-jump palette). */
+  quickJump: { keys: '+ K', label: 'Quick Jump & Search' },
+
+  hero: {
+    id: 'overview',
+    label: 'Overview',
+    kicker: { issue: 'ISSUE 01 // VOL. XXIV', partner: 'NVIDIA INCEPTION PARTNER SPECS', index: '[01 / 06] ARCHITECTURE', stream: 'REAL-TIME INGESTION' },
+    badge: 'NVIDIA TensorRT & H100 Accelerated Intelligence',
+    titleLead: 'Price With',
+    rotating: ['Clarity', 'Evidence', 'Confidence', 'Precision'],
+    body: 'Yevanta is the autonomous pricing engine for modern enterprise commerce. We process millions of concurrent competitor feeds, catalog shifts, and sentiment indicators to model dynamic price elasticity at sub-millisecond latency.',
+    primary: { label: 'Explore the Dashboard', to: site.dashboardUrl },
+    secondary: { label: 'NVIDIA SDK', to: '/product#sdk' },
+    audit: {
+      title: 'THROUGHPUT AUDIT',
+      status: 'ACTIVE CUDA PIPELINE',
+      headline: { value: '3.4M+', label: 'Price Adjustments / Sec' },
+      stats: [
+        { value: '< 0.8ms', label: 'Inference Latency' },
+        { value: '99.999%', label: 'Uptime SLA' },
+      ],
+      bar: { label: 'NVIDIA Acceleration', value: 'H100 / TensorRT', percent: 92 },
+    },
+    meta: [
+      { label: 'DOMAIN', value: 'yevanta.com' },
+      { label: 'ACCELERATION', value: 'AWS EC2 P5 (H100)' },
+      { label: 'FRAMEWORK', value: 'NVIDIA NeMo + cuDF' },
+      { label: 'INDUSTRY', value: 'Commerce & Enterprise' },
     ],
-    chartTitle: 'Price position vs competitors',
-    chartLegend: ['Your price', 'Competitor range'],
-    listTitle: 'Expiring price lists',
-    lists: [
-      { name: 'Retail · North', days: '5 days' },
-      { name: 'Online · All', days: '9 days' },
-      { name: 'Wholesale · EU', days: '12 days' },
-    ],
-    tableTitle: 'Recommendations to review',
-    tableCols: ['Product', 'Change', 'Confidence', 'Status'],
-    table: [
-      { name: 'SKU-1042', change: '+3.0%', confidence: 'High', status: 'Pending' },
-      { name: 'SKU-2210', change: '−1.5%', confidence: 'Medium', status: 'Approved' },
-      { name: 'SKU-0871', change: '+4.5%', confidence: 'Low', status: 'Adjusted' },
-      { name: 'SKU-3305', change: '+2.0%', confidence: 'High', status: 'Pending' },
-    ],
-    toasts: ['Recommendation approved', 'Price list expires in 5 days', 'Competitor CSV imported', 'Change added to approval trail'],
   },
-}
 
-export const flow = {
-  id: 'flow',
-  label: 'Workflow',
-  tone: 'c4' as Tone,
-  eyebrow: 'The workflow',
-  title: 'From record to ~realized~ result.',
-  lead: 'Every price change follows the same traceable path. Hover or focus a stage to see what happens there.',
-  nodes: [
-    { title: 'Product & Market Data', body: 'Products, categories, costs and margin floors, plus markets, channels and segments.', stat: 'SKU · cost', statLabel: 'margin floor', icon: 'table' },
-    { title: 'Price & Competitor Records', body: 'Price lists and competitor observations, loaded by CSV import or manual entry.', stat: 'CSV', statLabel: 'or manual entry', icon: 'database' },
-    { title: 'Recommendation', body: 'A recommendation record with expected uplift, confidence and rule checks.', stat: 'Uplift', statLabel: '+ confidence', icon: 'spark' },
-    { title: 'Human Review & Approval', body: 'A person approves, rejects or adjusts, and the decision joins the approval trail.', stat: 'Approve', statLabel: 'reject · adjust', icon: 'check' },
-    { title: 'Realized Results', body: 'Approved changes are tracked so expected and realized results can be compared.', stat: 'Expected', statLabel: 'vs realized', icon: 'chart' },
-  ],
-  note: 'Platform workflow',
-}
+  simulator: {
+    id: 'simulator',
+    label: 'Elasticity simulator',
+    eyebrow: '[02 / 06] INTERACTIVE DEMO ENGINE',
+    title: 'Simulate Demand Elasticity in Real Time',
+    lead: 'Test how Yevanta’s neural tensor models recalculate optimal price points against volatile market signals.',
+    panel: { title: 'Variable Control Panel', tag: 'TENSOR-SIM V4' },
+    sliders: [
+      { key: 'basePrice', label: 'Base SKU List Price', min: 50, max: 1000, step: 1, initial: 249, prefix: '$', suffix: '', minLabel: '$50', maxLabel: '$1,000' },
+      { key: 'competitorPrice', label: 'Competitor Index Price', min: 50, max: 1000, step: 1, initial: 229, prefix: '$', suffix: '', minLabel: '$50', maxLabel: '$1,000' },
+      { key: 'inventoryLevel', label: 'Inventory Capacity Index', min: 1, max: 100, step: 1, initial: 85, prefix: '', suffix: '%', minLabel: 'Critical (1%)', maxLabel: 'Surplus (100%)' },
+      { key: 'demandElasticity', label: 'Category Elasticity Coeff (Ed)', min: -3.5, max: -0.2, step: 0.1, initial: -1.8, prefix: '', suffix: '', minLabel: 'Highly Elastic (-3.5)', maxLabel: 'Inelastic (-0.2)' },
+    ],
+    output: {
+      title: 'MODEL OUTPUT // REAL-TIME INFERENCE',
+      badge: 'TensorRT FP16 Optimized',
+      recommended: { label: 'Recommended Price', note: 'Optimal Margin Equilibrium' },
+      variance: { label: 'Competitor Variance', note: 'Indexed against market leader' },
+      margin: 'Projected Margin Lift',
+      revenue: 'Estimated Revenue Impact',
+      insightTitle: 'Yevanta Signal Analysis:',
+      insight: (inventory: number, elasticity: number) =>
+        ` High inventory volume (${inventory}%) paired with an elasticity coefficient of ${elasticity} triggers automatic velocity protection. The price is optimized to capitalize on volume without eroding category margin positioning.`,
+    },
+  },
 
-export const modules = {
-  id: 'features',
-  label: 'Modules',
-  tone: 'c2' as Tone,
-  eyebrow: 'Module deep-dives',
-  title: 'Six modules, ~one~ trail.',
-  lead: 'Each module keeps its own records, and every one feeds the same review and approval trail.',
-  items: [
-    { key: 'registry', icon: 'table', graphic: 'table', title: 'Product & Market Registry', body: 'The foundation: every product and market recorded once, with the costs and limits that pricing depends on.', bullets: ['Product & category records (SKU, cost, margin floor)', 'Markets, regions and channels', 'Customer segments', 'Status: active, under review, discontinued'] },
-    { key: 'prices', icon: 'database', graphic: 'line', title: 'Price & Competitor Data', body: 'Your prices and competitor observations side by side, with full dated history.', bullets: ['Price lists by market and channel', 'Price-change history with effective dates', 'Competitor observations (source, date, price)', 'Price-position indicators computed from stored records'] },
-    { key: 'review', icon: 'check', graphic: 'checklist', title: 'Recommendation Review', body: 'Recommendations are records to review, never automatic price changes.', bullets: ['Recommendation records with expected uplift and confidence', 'Margin-floor and rule checks', 'Approve, reject or adjust', 'Approved changes tracked against realized results'] },
-    { key: 'growth', icon: 'users', graphic: 'bars', title: 'Growth Opportunities', body: 'Keep growth opportunities visible by customer segment, with clear ownership.', bullets: ['Opportunity records by segment', 'Owner for every opportunity', 'Status tracking'] },
-    { key: 'models', icon: 'layers', graphic: 'timeline', title: 'Pricing Model Management', body: 'A record of every pricing, demand-forecast and segmentation model and how it performed.', bullets: ['Pricing, demand-forecast and segmentation model records', 'Versions', 'Deployment status: draft, staging, active, retired', 'Performance history (forecast error, expected vs realized uplift)'] },
-    { key: 'console', icon: 'grid', graphic: 'radar', title: 'Commercial Operations Console', body: 'One screen for what needs attention across pricing work.', bullets: ['Pending approvals', 'Products priced above or below competitors beyond a threshold', 'Expiring price lists', 'Open opportunities'] },
-  ],
-  graphicLabel: 'Illustrative graphic',
-}
+  sdk: {
+    id: 'sdk',
+    label: 'NVIDIA SDK',
+    eyebrow: '[03 / 06] NVIDIA SDK HARDWARE INTEGRATION',
+    title: 'Built directly on GPU VRAM. Zero von Neumann bottlenecks.',
+    lead: 'By decoupling microservices from standard CPU host memory and running high-concurrency pricing algorithms inside GPU VRAM primitives, Yevanta achieves unmatched data processing throughput.',
+    tabs: [
+      {
+        id: 'rapids', name: 'NVIDIA RAPIDS (cuDF/cuML)', icon: 'database',
+        tag: 'ETL ACCELERATION & VECTOR NORMALIZATION',
+        title: 'NVIDIA RAPIDS (cuDF & cuML) Pipeline',
+        paragraphs: [
+          { strong: 'The Problem:', text: ' Traditional CPU-bound dataframes (Pandas/Spark) cause massive I/O thrashing and latencies when parsing millions of real-time competitor price drops, global exchange rates, and inventory shifts.' },
+          { strong: 'Yevanta’s Implementation:', text: ' Raw incoming stream feeds are converted into GPU dataframes directly in VRAM via ', code: 'cuDF', after: '. We execute multi-currency conversions, catalog matching, and parallel vector normalization with zero CPU host-memory swaps.' },
+        ],
+        stats: [{ label: 'SPEEDUP VS PANDAS', value: '48.2x Faster' }, { label: 'MEMORY BANDWIDTH', value: '3.35 TB/sec' }],
+      },
+      {
+        id: 'nemo', name: 'NVIDIA NeMo NLP', icon: 'code',
+        tag: 'CONVERSATIONAL & UNSTRUCTURED TEXT NLP',
+        title: 'NVIDIA NeMo Framework',
+        paragraphs: [
+          { strong: 'The Problem:', text: ' Understanding pricing intent from unstructured customer reviews, seller descriptions, promotional emails, and press releases requires deep domain-specific language understanding.' },
+          { strong: 'Yevanta’s Implementation:', text: ' We utilize NVIDIA NeMo’s domain-specific tokenizers and conversational modules to perform fine-grained Named Entity Recognition (NER) and competitive sentiment extraction across global market feeds.' },
+        ],
+        stats: [{ label: 'NER ACCURACY', value: '99.1% Entity Match' }, { label: 'LATENCY PER DOC', value: '1.2ms Avg' }],
+      },
+      {
+        id: 'tensorrt', name: 'NVIDIA TensorRT Engine', icon: 'zap',
+        tag: 'QUANTIZED MODEL COMPILATION',
+        title: 'NVIDIA TensorRT Compiler',
+        paragraphs: [
+          { strong: 'The Problem:', text: ' Deep multi-variable elasticity neural networks incur heavy latency spikes during flash sales and high-traffic shopping events.' },
+          { strong: 'Yevanta’s Implementation:', text: ' Our PyTorch elasticity models are converted via ONNX and compiled into TensorRT runtime engines. Using FP16 and INT8 precision calibration with kernel fusion, we guarantee sub-millisecond execution even during Black Friday peak traffic.' },
+        ],
+        stats: [{ label: 'LATENCY REDUCTION', value: '87% Lower Latency' }, { label: 'PRECISION FORMAT', value: 'INT8 / FP16 Mixed' }],
+      },
+      {
+        id: 'triton', name: 'Triton & NIM Microservices', icon: 'server',
+        tag: 'MULTI-GPU MICROSERVICES & NIM',
+        title: 'Triton Inference Server & NVIDIA NIM',
+        paragraphs: [
+          { strong: 'Enterprise Orchestration:', text: ' Yevanta deploys Triton Inference Server inside Amazon EKS clusters to handle dynamic batching, model versioning, and concurrent multi-GPU execution.' },
+          { text: 'Standardized NVIDIA NIM microservice blueprints allow instant containerized horizontal autoscaling with minimal cold-start times across AWS P4 (A100) and P5 (H100) hardware tiers.' },
+        ],
+        stats: [{ label: 'CONTAINER COLD-START', value: '< 1.4s NIM Deploy' }, { label: 'GPU UTILIZATION', value: '96.4% Efficiency' }],
+      },
+    ],
+    diagram: {
+      title: 'SYSTEM DIAGRAM // GPU MEMORY PIPELINE',
+      steps: [
+        { label: 'DATA INGESTION', value: '100k+ SKU Stream / sec' },
+        { arrow: '↓ GPU VRAM Direct Transfer' },
+        { label: 'NVIDIA RAPIDS & NeMo', value: 'Vectorization + NER Matching', accent: true },
+        { arrow: '↓ ONNX Export + TensorRT Compile' },
+        { label: 'INFERENCE LAYER', value: 'Triton Multi-GPU Server' },
+      ],
+    },
+  },
 
-export const tour = {
-  id: 'tour',
-  label: 'Product tour',
-  tone: 'c3' as Tone,
-  eyebrow: 'Product tour',
-  title: 'Take the ~tour~.',
-  lead: 'Five screens, one consistent workflow. It advances on its own. Hover to pause.',
-  badge: 'Illustrative preview',
-  pause: 'Paused',
-  tabs: [
-    { key: 'overview', label: 'Overview', caption: 'The operations console: pending approvals, expiring price lists and open opportunities.' },
-    { key: 'registry', label: 'Registry', caption: 'Products, categories, markets, channels and segments, each with a clear status.' },
-    { key: 'pricing', label: 'Pricing', caption: 'Price lists with change history, and competitor observations with source and date.' },
-    { key: 'recommendations', label: 'Recommendations', caption: 'Recommendation records with uplift and confidence, ready to approve, reject or adjust.' },
-    { key: 'models', label: 'Models', caption: 'Model versions, deployment status and expected-versus-realized performance history.' },
-  ],
-}
+  benchmarks: {
+    id: 'benchmarks',
+    label: 'Benchmarks',
+    eyebrow: '[04 / 06] AWS CLOUD ACCELERATION & BENCHMARKS',
+    title: 'Hardware Benchmark Matrix',
+    tiers: [
+      { id: 'cpu', label: 'Standard CPU Node' },
+      { id: 'a100', label: 'AWS P4 (A100 80GB)' },
+      { id: 'h100', label: 'AWS P5 (H100 Hopper)' },
+    ],
+    initialTier: 'h100',
+    cards: [
+      {
+        label: 'PROCESSING LATENCY',
+        values: { cpu: '18.4 ms', a100: '2.1 ms', h100: '0.45 ms' },
+        notes: {
+          cpu: 'Severe thread blocking under continuous catalog feed ingestion.',
+          a100: 'High speed parallel inference for medium-sized catalog workloads.',
+          h100: 'Sub-millisecond dynamic price calculation powered by Transformer Engine.',
+        },
+      },
+      {
+        label: 'CATALOG INGESTION VOLUME',
+        values: { cpu: '12k SKUs/s', a100: '450k SKUs/s', h100: '2.8M SKUs/s' },
+        notes: {
+          cpu: 'Bottlenecked by host RAM CPU cache transfers.',
+          a100: 'Accelerated with cuDF CUDA memory primitives.',
+          h100: 'Maximum high-bandwidth HBM3 memory throughput.',
+        },
+      },
+      {
+        label: 'MEMORY BANDWIDTH',
+        values: { cpu: '102 GB/s', a100: '2,039 GB/s', h100: '3,350 GB/s' },
+        notes: {
+          cpu: 'DDR5 DRAM limits concurrent matrix operations.',
+          a100: 'HBM2e memory prevents matrix OOM faults.',
+          h100: 'Ultra-high HBM3 memory bandwidth for massive model execution.',
+        },
+      },
+    ],
+    footnote: 'NVIDIA Inception Program Compute Grant Alignment',
+    /** Client copy had no target for this link yet: it points at the SDK section until a document URL is supplied. */
+    docLink: { label: 'Read Technical Justification Documentation →', to: '/product#sdk' },
+  },
 
-export const beforeAfter = {
-  id: 'before-after',
-  label: 'Before & after',
-  tone: 'c4' as Tone,
-  eyebrow: 'Before / After',
-  title: 'From ~instinct~ to evidence.',
-  lead: 'Drag the handle (or use the arrow keys) to compare.',
-  before: 'Spreadsheets and instinct',
-  after: 'One traceable pricing workflow',
-  handleLabel: 'Comparison slider',
-  beforeAlt: 'Overlapping spreadsheets, sticky notes and chat bubbles scattered across a desk.',
-  afterAlt: 'A tidy pricing console with summary cards, a chart and an ordered list.',
-}
+  capabilities: {
+    id: 'capabilities',
+    label: 'Capabilities',
+    eyebrow: '[05 / 06] SYSTEM CAPABILITIES MATRIX',
+    title: 'Enterprise Product Features',
+    lead: 'Designed for high-scale enterprise retail, marketplace aggregators, and global e-commerce networks.',
+    tabs: [
+      {
+        id: 'ingestion', title: '01. Real-Time Ingestion', desc: 'Continuous parsing of competitor pricing matrices.', icon: 'database',
+        heading: 'High-Velocity Data Ingestion Engine',
+        body: 'Yevanta continuously ingests unstructured web feeds, raw marketplace APIs, global currency exchange updates, and direct ERP inventory logs. By streaming raw data feeds straight to GPU VRAM using cuDF, we eliminate pipeline processing backlog during mega-sale events.',
+        points: ['Parallel multi-currency normalization', 'Direct streaming connectors for SAP, Salesforce Commerce, and Shopify Plus', 'Automatic proxy rotation and bot mitigation bypass'],
+      },
+      {
+        id: 'nlp', title: '02. Catalog Sentiment NLP', desc: 'Product matching and promo intent extraction.', icon: 'code',
+        heading: 'Contextual Product Matching & Intent NLP',
+        body: 'Comparing identical products across competitor sites is notoriously complex due to missing SKUs, altered titles, and bundled promotions. Our NVIDIA NeMo powered NLP models perform deep semantic matching to pair exact and substitute products across disparate feeds.',
+        points: ['Named Entity Recognition (NER) for brand, size, color, and pack spec', 'Promotional code & discount strategy extraction', 'Multi-language title & description alignment'],
+      },
+      {
+        id: 'elasticity', title: '03. Dynamic Price Engine', desc: 'Predictive elasticity modeling.', icon: 'chart',
+        heading: 'Transformer-Based Price Elasticity Engine',
+        body: 'Rather than relying on static rules, Yevanta deploys continuous PyTorch neural networks optimized with NVIDIA TensorRT to calculate dynamic price elasticity coefficients for every single SKU in your catalog in real time.',
+        points: ['Multi-variable demand prediction under supply constraints', 'Automated cross-product cannibalization modeling', 'Real-time price optimization loops'],
+      },
+      {
+        id: 'governance', title: '04. Enterprise Guardrails', desc: 'Margin protection and strategy overrides.', icon: 'lock',
+        heading: 'Enterprise Strategy & Floor-Price Safeguards',
+        body: 'Complete commercial control over AI recommendations. Define absolute floor margins, MAP (Minimum Advertised Price) compliance rules, brand equity protection constraints, and manual override thresholds across catalog segments.',
+        points: ['Hard floor-margin safety locks', 'Role-based executive approval workflows', 'Audit-ready decision explainability logs'],
+      },
+    ],
+  },
 
-export const technology = {
-  id: 'technology',
-  label: 'Technology',
-  tone: 'c1' as Tone,
-  eyebrow: 'Technology',
-  title: 'Proposed Technology ~Foundation~.',
-  body: 'Options under consideration for analytics, forecasting and assistant features as the platform grows.',
-  proposedTag: 'Proposed',
-  items: [
-    { name: 'NVIDIA RAPIDS', body: 'Proposed GPU-accelerated analytics on large transaction and price datasets.', icon: 'database' },
-    { name: 'NVIDIA cuML', body: 'Proposed GPU-accelerated machine learning for demand forecasting and segmentation.', icon: 'chart' },
-    { name: 'NVIDIA NeMo', body: 'Proposed framework for language-model assistants that explain recommendations and analyze customer feedback.', icon: 'chat' },
-    { name: 'NVIDIA NIM', body: 'Proposed inference microservices for pricing and language models.', icon: 'layers' },
-  ],
-  disclaimer: 'These technologies are proposed architectural options. Their inclusion does not imply completed integration, certification or NVIDIA endorsement.',
-}
-
-export const architecture = {
-  id: 'architecture',
-  label: 'Architecture',
-  tone: 'c2' as Tone,
-  eyebrow: 'Architecture overview',
-  title: 'Layered for ~clarity~.',
-  lead: 'A straightforward layered design. Scroll to pull it apart.',
-  layers: [
-    { title: 'Responsive Web Interface', body: 'Works on desktop, tablet and phone.' },
-    { title: 'PHP/Laravel Application', body: 'Workflow, rules and review logic.' },
-    { title: 'Role-Based Access', body: 'Administrator, Pricing Manager, Commercial Analyst, Viewer.' },
-    { title: 'Backend APIs', body: 'Structured access to the records.' },
-    { title: 'SQL Data', body: 'Products, prices, recommendations, models.' },
-  ],
-}
-
-export const governance = {
-  id: 'governance',
-  label: 'Governance',
-  tone: 'c4' as Tone,
-  eyebrow: 'Governance',
-  title: 'Control built into every ~change~.',
-  lead: 'Governance is the core of Yevanta: every price change is reviewed, recorded and measured.',
-  items: [
-    { title: 'Approval trail for price changes', body: 'Every approved, rejected or adjusted change is recorded.', icon: 'history' },
-    { title: 'Human review controls', body: 'Recommendations never change a price without a person’s decision.', icon: 'users' },
-    { title: 'Model-result history', body: 'Expected versus realized results kept for every model version.', icon: 'chart' },
-    { title: 'Access control', body: 'Role-based access for each of the four user roles.', icon: 'lock' },
-    { title: 'Activity records', body: 'A readable record of activity across the platform.', icon: 'list' },
-  ],
-}
-
-export const useCases = {
-  id: 'use-cases',
-  label: 'Use cases',
-  tone: 'c1' as Tone,
-  eyebrow: 'Use cases',
-  title: 'Made for ~real~ pricing teams.',
-  items: [
-    { title: 'Retail and e-commerce pricing', scenario: 'Keep price lists by market and channel next to competitor observations, and review every proposed change before it is approved.', art: 0, alt: 'Three characters gathered around a shared screen.' },
-    { title: 'B2B and SaaS pricing', scenario: 'Track growth opportunities by customer segment and keep a clear approval trail for every pricing decision.', art: 1, alt: 'A character beside a rising stack of rounded blocks.' },
-    { title: 'Marketplaces and wholesalers', scenario: 'Apply margin-floor and rule checks across markets and channels, and compare expected with realized results.', art: 2, alt: 'An orb surrounded by orbiting rings and a checkmark.' },
-  ],
-  link: { label: 'Learn more', to: '/#contact' },
-}
-
-export const plans = {
-  id: 'plans',
-  label: 'Plans',
-  tone: 'c3' as Tone,
-  eyebrow: 'Plans snapshot',
-  title: 'A plan for ~every~ stage.',
-  link: { label: 'Compare all plans', to: '/#pricing' },
-}
-
-export const productFaq = {
-  id: 'product-faq',
-  label: 'Product FAQ',
-  tone: 'c4' as Tone,
-  eyebrow: 'Product FAQ',
-  title: 'Good ~questions~.',
-  items: [
-    { q: 'What does the dashboard show?', a: 'The commercial operations console shows pending approvals, products priced above or below competitors beyond a threshold, expiring price lists and open opportunities.' },
-    { q: 'Do recommendations change prices automatically?', a: 'No. Recommendation records are reviewed by people, who approve, reject or adjust them. Every decision is kept on the approval trail.' },
-    { q: 'How does competitor data get in?', a: 'By CSV import or manual entry. Each observation records its source, date and price. There is no live collection.' },
-    { q: 'Are approved prices pushed to our storefront or ERP?', a: 'Recommendations are reviewed and approved by users. Automatic publishing depends on the available integrations and configured workflow; integration services for ERP, e-commerce and CRM are part of the Enterprise plan.' },
-    { q: 'Which roles are available?', a: 'Administrator, Pricing Manager, Commercial Analyst and Viewer, with role-based access.' },
-  ],
-}
-
-export const finalCta = {
-  id: 'final-cta',
-  label: 'Get started',
-  tone: 'c3' as Tone,
-  title: 'Ready to See It ~Live~?',
-  body: 'Open the dashboard and explore Yevanta’s pricing console for yourself.',
-  primary: { label: 'Open the Dashboard', to: site.dashboardUrl },
-  secondary: { label: 'Talk to Us', to: '/#contact' },
+  onboarding: {
+    id: 'onboarding',
+    label: 'Onboarding',
+    eyebrow: '[06 / 06] ENTERPRISE ONBOARDING',
+    title: 'Ready to Accelerate Your Pricing Architecture?',
+    body: 'Transform your business growth trajectory with GPU-accelerated intelligence. Request early access to Yevanta’s dashboard or coordinate directly with our engineering team.',
+    primary: { label: 'Pricing Plan', to: '/#pricing' },
+    secondary: { label: 'Contact us', to: '/#contact' },
+    meta: ['Production Domain: yevanta.com', 'NVIDIA Inception Partner Portfolio', 'AWS EC2 P5 Target Framework'],
+  },
 }
 
 export const notFound = {
@@ -779,7 +785,7 @@ export const seo = {
     product: {
       path: routes.product,
       title: site.meta.productTitle,
-      description: 'Product and market registry, price and competitor records, recommendation review, growth opportunities and pricing model history in one traceable pricing console.',
+      description: 'Yevanta is the autonomous pricing engine for modern enterprise commerce, accelerated with NVIDIA TensorRT, NeMo and RAPIDS.',
       index: true, changefreq: 'weekly', priority: 0.9,
     },
     privacy: { path: routes.privacy, title: 'Privacy policy | Yevanta', description: 'Yevanta privacy policy (placeholder, to be published).', index: false },
@@ -796,7 +802,7 @@ export const seo = {
 export const landingSections = [hero, trust, search, howItWorks, features, demo, highlights, about, pricing, faq, contact]
   .map(({ id, label }) => ({ id, label }))
 
-export const productSections = [productHero, flow, modules, tour, beforeAfter, technology, architecture, governance, useCases, plans, productFaq, finalCta]
+export const productSections = [productPage.hero, productPage.simulator, productPage.sdk, productPage.benchmarks, productPage.capabilities, productPage.onboarding]
   .map(({ id, label }) => ({ id, label }))
 
 export const palettePages = [

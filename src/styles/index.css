@@ -12,6 +12,8 @@
   --c4: #D3DAD9;
   /* c3 deepened toward c1 (a blend of palette colours) so c4 text stays AA */
   --c3d: color-mix(in srgb, var(--c3) 70%, var(--c1));
+  /* c3 lifted toward c4 (a blend of palette colours) so rose accent text stays AA on c1/c2 */
+  --c3l: color-mix(in srgb, var(--c3) 30%, var(--c4));
   /* secondary-text opacity: 0.82 keeps WCAG AA on c1/c2/c4; c3 surfaces need full strength */
   --subtle: 0.82;
   --bg: var(--c1);
@@ -64,6 +66,8 @@
 }
 
 @theme inline {
+  --color-c3d: var(--c3d);
+  --color-c3l: var(--c3l);
   --color-fg: var(--fg);
   --color-bg: var(--bg);
   --color-acc: var(--acc);
