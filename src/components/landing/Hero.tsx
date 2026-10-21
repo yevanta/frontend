@@ -97,7 +97,7 @@ export function Hero() {
 
           <motion.div
             style={{ y: sceneY }}
-            className="relative mx-auto w-full max-w-[540px] md:col-span-6 md:max-w-none lg:max-w-[640px]"
+            className="relative mx-auto w-full max-w-[540px] md:col-span-6 md:mb-12 md:max-w-none lg:mb-28 lg:max-w-[640px]"
             initial={{ opacity: 0, scale: 0.94 }}
             animate={done ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 1.1, ease: ease.out, delay: 0.15 }}
