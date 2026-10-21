@@ -57,7 +57,7 @@ function Shell() {
               </Page>
             }
           />
-          {(['privacy', 'terms', 'cookies'] as const).map((k) => (
+          {(['privacy', 'terms'] as const).map((k) => (
             <Route key={k} path={legal.pages[k].path} element={<Page seo={seo.pages[k]}><Legal which={k} /></Page>} />
           ))}
           <Route path="*" element={<Page seo={seo.pages.notFound}><NotFound /></Page>} />
