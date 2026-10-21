@@ -5,7 +5,6 @@ import { footer, ui } from '../../content'
 import { ease } from '../../motion'
 import { usePrefs } from '../../lib/prefs'
 import { useSmoothScroll } from '../../lib/scroll'
-import { events } from '../../lib/sections'
 import { cn } from '../../lib/utils'
 import { Icon } from '../ui/Icon'
 import { Container } from '../ui/primitives'
@@ -165,9 +164,6 @@ export function Footer() {
             <p className="subtle">{footer.copyright}</p>
             <p className="label mt-1 text-[10px] subtle">{footer.entities}</p>
           </div>
-          <button type="button" onClick={() => window.dispatchEvent(new Event(events.openCookies))} className="min-h-8 py-1 text-left underline decoration-fg/30 underline-offset-4 transition hover:decoration-fg">
-            {footer.cookiePrefs}
-          </button>
         </div>
       </Container>
     </footer>

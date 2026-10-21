@@ -509,7 +509,6 @@ export const footer = {
     { title: 'Resources', links: [
       { label: 'Pricing', to: '/#pricing' },
       { label: 'FAQ', to: '/#faq' },
-      { label: 'Capabilities', to: '/product#capabilities' },
     ] },
     { title: 'Legal', links: [
       { label: 'Privacy policy', to: routes.privacy },
@@ -519,7 +518,6 @@ export const footer = {
   socials: company.socials,
   wordmark: site.brand,
   backToTop: 'Back to top',
-  cookiePrefs: 'Cookie preferences',
   copyright: `© ${site.year} ${company.name}. All rights reserved.`,
   entities: company.offices.map((o) => `${o.legalName} (${o.region})`).join(' · '),
   email: company.email,
