@@ -1,5 +1,6 @@
-import { useId, useState, type FormEvent } from 'react'
+import { useId, useRef, useState, type FormEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useForm } from '@formspree/react'
 import { contact, faq, pricing, ui } from '../../content'
 import { ease } from '../../motion'
 import { cn } from '../../lib/utils'
@@ -8,6 +9,7 @@ import { Icon } from '../ui/Icon'
 import { Accordion } from '../ui/Interactive'
 import { MagneticButton, UnderlineLink } from '../ui/MagneticButton'
 import { Container, Note, Reveal, Section, SectionHeading } from '../ui/primitives'
+import { Recaptcha, type RecaptchaHandle } from '../ui/Recaptcha'
 import { SplitText } from '../ui/SplitText'
 
 /* --------------------------------- Pricing -------------------------------- */
@@ -182,7 +184,13 @@ function ContactForm() {
   const uid = useId()
   const [v, setV] = useState<Record<Field, string>>({ name: '', email: '', phone: '', subject: '', message: '' })
   const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({})
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+  const [fs, sendToFormspree, resetFormspree] = useForm(f.formspreeId)
+  const [token, setToken] = useState('')
+  const [captchaMissing, setCaptchaMissing] = useState(false)
+  const captcha = useRef<RecaptchaHandle>(null)
+  const status: 'idle' | 'sending' | 'sent' = fs.succeeded ? 'sent' : fs.submitting ? 'sending' : 'idle'
+  // Formspree problems (rejected captcha, network, form limits) are shown as one friendly message
+  const sendError = !fs.submitting && fs.errors && (fs.errors.getFormErrors().length > 0 || fs.errors.getAllFieldErrors().length > 0) ? f.errors.send : ''
 
   const validate = (k: Field, val: string) => {
     if (k === 'name' && val.trim().length < 2) return f.errors.name
@@ -205,8 +213,27 @@ function ContactForm() {
       document.getElementById(`${uid}-${bad}`)?.focus()
       return
     }
-    setStatus('sending')
-    window.setTimeout(() => setStatus('sent'), 1100) // front-end only
+    if (!token) {
+      setCaptchaMissing(true)
+      return
+    }
+    void sendToFormspree({
+      name: v.name.trim(),
+      email: v.email.trim(),
+      phone: v.phone.trim(),
+      subject: v.subject,
+      message: v.message.trim(),
+      _replyto: v.email.trim(),
+      _subject: f.emailSubject(v.subject),
+      'g-recaptcha-response': token,
+    }).finally(() => captcha.current?.reset()) // a token is single-use
+  }
+
+  const again = () => {
+    setV({ name: '', email: '', phone: '', subject: '', message: '' })
+    setTouched({})
+    setCaptchaMissing(false)
+    resetFormspree()
   }
 
   const input = 'w-full rounded-[22px] bg-transparent px-5 pb-3 pt-7 text-[15px] outline-none'
@@ -232,6 +259,25 @@ function ContactForm() {
                 <textarea rows={5} maxLength={f.maxLength} className={cn(input, 'resize-none pb-8')} {...aria('message')} />
               </FloatField>
             </div>
+            <div className="sm:col-span-2">
+              <Recaptcha
+                ref={captcha}
+                siteKey={f.recaptcha.siteKey}
+                loadingText={f.recaptcha.loading}
+                errorText={f.recaptcha.unavailable}
+                onToken={(t) => { setToken(t); if (t) setCaptchaMissing(false) }}
+              />
+              {captchaMissing && (
+                <p role="alert" className="mt-1.5 flex items-center gap-1.5 pl-1 text-sm font-semibold">
+                  <Icon name="x" size={14} strokeWidth={2.4} /> {f.errors.captcha}
+                </p>
+              )}
+            </div>
+            {sendError && (
+              <p role="alert" className="flex items-start gap-2 rounded-[18px] bg-fg/10 px-4 py-3 text-sm font-semibold sm:col-span-2">
+                <Icon name="x" size={16} strokeWidth={2.4} className="mt-0.5 shrink-0" /> {sendError}
+              </p>
+            )}
             <div className="flex items-center justify-between gap-4 sm:col-span-2">
               {contact.info.note ? <Note>{contact.info.note}</Note> : <span />}
               <MagneticButton type="submit" disabled={status === 'sending'}>{status === 'sending' ? f.sending : f.submit}</MagneticButton>
@@ -249,7 +295,7 @@ function ContactForm() {
             </div>
             <p className="display-md mt-8">{f.success.title}</p>
             <p className="text-muted mt-3 max-w-sm">{f.success.body}</p>
-            <button type="button" className="mt-6 underline underline-offset-4" onClick={() => { setV({ name: '', email: '', phone: '', subject: '', message: '' }); setTouched({}); setStatus('idle') }}>
+            <button type="button" className="mt-6 underline underline-offset-4" onClick={again}>
               {f.success.again}
             </button>
           </motion.div>

@@ -443,14 +443,22 @@ export const contact = {
     counter: (n: number, max: number) => `${n} / ${max}`,
     submit: 'Talk',
     sending: 'Sending…',
-    success: { title: 'Message sent', body: 'Thanks, we’ll be in touch soon. (Front-end demo: nothing was actually sent.)', again: 'Send another' },
+    success: { title: 'Message sent', body: 'Thanks for reaching out. We’ll get back to you soon.', again: 'Send another' },
     errors: {
       name: 'Please enter your name.',
       email: 'Please enter a valid email address.',
       phone: 'Please enter a valid phone number.',
       subject: 'Please choose a subject.',
       message: 'Please write at least 10 characters.',
+      captcha: 'Please confirm you’re not a robot.',
+      send: `Sorry, your message couldn’t be sent. Please try again, or email us at ${company.email}.`,
     },
+    /** Formspree form (submissions are emailed by Formspree). */
+    formspreeId: 'mgaojnyp',
+    /** Subject line of the email Formspree sends. */
+    emailSubject: (subject: string) => `Yevanta website enquiry: ${subject}`,
+    /** Google reCAPTCHA v2 checkbox. The SITE key is public by design; the secret key lives only in Formspree's settings. */
+    recaptcha: { siteKey: '6LdZXPktAAAAAI9kjsDcwmJIJKyfTujZ_jkMUtXJ', loading: 'Loading security check…', unavailable: 'The security check couldn’t load. Please refresh the page, or email us.' },
   },
   info: {
     title: 'Get in touch',
