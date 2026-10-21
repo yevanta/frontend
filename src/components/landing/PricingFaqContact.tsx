@@ -291,6 +291,25 @@ export function Contact() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <p className="label text-[10px] subtle">{c.info.socialsLabel}</p>
+                  <ul className="flex flex-wrap gap-2">
+                    {c.info.socials.map((s) => (
+                      <li key={s.icon}>
+                        <a
+                          href={s.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${s.label} ${ui.newTab}`}
+                          title={s.label}
+                          className="grid h-11 w-11 place-items-center rounded-full hairline transition-colors duration-300 hover:bg-fg hover:text-bg"
+                        >
+                          <Icon name={s.icon} size={18} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
                 {c.info.note && <Note className="mt-5 block">{c.info.note}</Note>}
               </div>
             </div>

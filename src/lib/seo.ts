@@ -85,5 +85,6 @@ export function organizationJsonLd() {
       areaServed: o.countryCode,
     })),
     subOrganization: company.offices.map((o) => ({ '@type': 'Organization', legalName: o.legalName, telephone: o.tel, address: o.address })),
+    sameAs: company.socials.map((s) => s.href),
   }
 }

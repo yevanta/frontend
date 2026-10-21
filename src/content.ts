@@ -98,6 +98,13 @@ export const company = {
       tel: '+94760230238',
     },
   ],
+  /** Official social profiles (client-supplied). Footer, Contact card and search-engine data (sameAs). */
+  socials: [
+    { network: 'Facebook', label: 'Yevanta on Facebook', href: 'https://www.facebook.com/Yevanta/', icon: 'facebook' },
+    { network: 'Medium', label: 'Yevanta on Medium', href: 'https://medium.com/@yevanta_digital_solutions/about', icon: 'medium' },
+    { network: 'YouTube', label: 'Yevanta on YouTube', href: 'https://www.youtube.com/@YevantaDigitalSolutions', icon: 'youtube' },
+    { network: 'LinkedIn', label: 'Yevanta on LinkedIn', href: 'https://www.linkedin.com/company/yevanta-digital-solutions/', icon: 'linkedin' },
+  ],
 }
 
 export const ui = {
@@ -453,6 +460,8 @@ export const contact = {
     officeLabels: { address: 'Address', phone: 'Phone' },
     offices: company.offices,
     mapAlt: 'A stylised map with rounded city blocks and a location pin.',
+    socialsLabel: 'Follow us',
+    socials: company.socials,
     note: '',
   },
   cta: {
@@ -496,19 +505,14 @@ export const footer = {
       { label: 'Sitemap', to: '/sitemap.xml' },
     ] },
   ],
-  socials: [
-    { label: 'Social profile (placeholder)', href: '#', icon: 'x' },
-    { label: 'Social profile (placeholder)', href: '#', icon: 'in' },
-    { label: 'Social profile (placeholder)', href: '#', icon: 'camera' },
-    { label: 'Social profile (placeholder)', href: '#', icon: 'play' },
-  ],
+  socials: company.socials,
   wordmark: site.brand,
   backToTop: 'Back to top',
   cookiePrefs: 'Cookie preferences',
   copyright: `© ${site.year} ${company.name}. All rights reserved.`,
   entities: company.offices.map((o) => `${o.legalName} (${o.region})`).join(' · '),
   email: company.email,
-  placeholderNote: 'Social links and legal pages are placeholders.',
+  placeholderNote: 'Legal pages are placeholders.',
 }
 
 export const cookie = {

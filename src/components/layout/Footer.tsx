@@ -1,6 +1,6 @@
 import { useRef, useState, type FormEvent, type PointerEvent } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'framer-motion'
-import { footer } from '../../content'
+import { footer, ui } from '../../content'
 import { ease } from '../../motion'
 import { usePrefs } from '../../lib/prefs'
 import { useSmoothScroll } from '../../lib/scroll'
@@ -69,7 +69,7 @@ function SocialIcon({ href, label, icon }: { href: string; label: string; icon: 
     y.set((e.clientY - r.top - r.height / 2) * 0.45)
   }
   return (
-    <motion.a href={href} aria-label={label} onPointerMove={move} onPointerLeave={() => { x.set(0); y.set(0) }} onClick={(e) => href === '#' && e.preventDefault()} style={{ x, y }}
+    <motion.a href={href} target="_blank" rel="noopener noreferrer" aria-label={`${label} ${ui.newTab}`} title={label} onPointerMove={move} onPointerLeave={() => { x.set(0); y.set(0) }} style={{ x, y }}
       className="grid h-12 w-12 place-items-center rounded-full hairline transition-colors duration-300 hover:bg-fg hover:text-bg">
       <Icon name={icon} size={18} />
     </motion.a>
