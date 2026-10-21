@@ -156,7 +156,7 @@ export const hero = {
     { value: 1, suffix: '', label: 'approval trail' },
   ],
   statsNote: 'Product facts',
-  image: { src: '/images/hero.webp', width: 1134, height: 900 },
+  image: { src: '/images/hero.webp', width: 880, height: 762 },
   chipsLabel: 'Key qualities',
   sceneAlt: 'A smiling shopper using her phone, surrounded by products and Find, Analysis and Enter steps leading to the correct pricing recommendation.',
 }

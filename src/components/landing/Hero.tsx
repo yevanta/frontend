@@ -97,7 +97,7 @@ export function Hero() {
 
           <motion.div
             style={{ y: sceneY }}
-            className="relative mx-auto w-full max-w-[480px] md:col-span-6 md:max-w-none lg:max-w-[600px]"
+            className="relative mx-auto w-full max-w-[540px] md:col-span-6 md:max-w-none lg:max-w-[640px]"
             initial={{ opacity: 0, scale: 0.94 }}
             animate={done ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 1.1, ease: ease.out, delay: 0.15 }}
@@ -112,7 +112,8 @@ export function Hero() {
                 fetchPriority="high"
                 decoding="async"
                 draggable={false}
-                className="relative aspect-[1134/900] w-full select-none object-contain"
+                style={{ aspectRatio: `${hero.image.width} / ${hero.image.height}` }}
+                className="relative w-full select-none object-contain"
               />
             </DepthLayer>
             <ul className="relative mt-3 flex flex-wrap justify-center gap-2" aria-label={hero.chipsLabel}>
