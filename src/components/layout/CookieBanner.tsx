@@ -36,7 +36,7 @@ export function CookieBanner() {
           role="dialog"
           aria-live="polite"
           aria-label={cookie.label}
-          className="tone-c2 fixed bottom-4 left-4 right-4 z-[70] max-w-sm overflow-hidden rounded-[28px] p-5 hairline-strong shadow-[0_30px_80px_-30px_var(--c1)] sm:left-auto sm:right-6 sm:bottom-6"
+          className="tone-c2 fixed bottom-24 left-4 right-4 z-[70] max-w-sm overflow-hidden rounded-[28px] p-5 hairline-strong shadow-[0_30px_80px_-30px_var(--c1)] sm:bottom-6 sm:left-6 sm:right-auto"
           initial={{ y: 140, opacity: 0, rotate: 3 }}
           animate={{ y: 0, opacity: 1, rotate: 0 }}
           exit={{ y: 140, opacity: 0 }}

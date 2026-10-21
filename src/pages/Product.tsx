@@ -45,7 +45,7 @@ function QuickJumpHint() {
     <button
       type="button"
       onClick={() => window.dispatchEvent(new Event(events.openPalette))}
-      className="fixed bottom-6 right-6 z-40 hidden items-center gap-3 rounded-full border border-c4/15 bg-c2/90 px-4 py-2.5 font-mono text-xs shadow-2xl backdrop-blur-md transition-colors hover:border-c4/30 md:flex"
+      className="fixed bottom-6 left-6 z-40 hidden items-center gap-3 rounded-full border border-c4/15 bg-c2/90 px-4 py-2.5 font-mono text-xs shadow-2xl backdrop-blur-md transition-colors hover:border-c4/30 md:flex"
     >
       <span className="flex items-center gap-1 text-c4/80">
         <Command aria-hidden className="h-3.5 w-3.5 text-c3l" /> {p.quickJump.keys}

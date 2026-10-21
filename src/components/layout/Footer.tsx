@@ -1,5 +1,6 @@
 import { useRef, useState, type FormEvent, type PointerEvent } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { useForm } from '@formspree/react'
 import { footer, ui } from '../../content'
 import { ease } from '../../motion'
 import { usePrefs } from '../../lib/prefs'
@@ -12,12 +13,16 @@ import { SmartLink } from '../ui/SmartLink'
 import { SplitText } from '../ui/SplitText'
 
 function Newsletter() {
+  const nl = footer.newsletter
   const [email, setEmail] = useState('')
-  const [state, setState] = useState<'idle' | 'error' | 'done'>('idle')
+  const [invalid, setInvalid] = useState(false)
+  const [fs, send] = useForm(nl.formspreeId)
+  const state: 'idle' | 'error' | 'done' = fs.succeeded ? 'done' : invalid ? 'error' : 'idle'
+  const failed = !fs.submitting && !!fs.errors && (fs.errors.getFormErrors().length > 0 || fs.errors.getAllFieldErrors().length > 0)
   const submit = (e: FormEvent) => {
     e.preventDefault()
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return setState('error')
-    setState('done')
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return setInvalid(true)
+    void send({ email: email.trim(), _subject: nl.emailSubject, page: window.location.pathname })
   }
   return (
     <div className="glass relative overflow-hidden rounded-[32px] p-6 md:p-8">
@@ -30,14 +35,14 @@ function Newsletter() {
               <label htmlFor="nl-email" className="sr-only">{footer.newsletter.label}</label>
               <input
                 id="nl-email" type="email" value={email} autoComplete="email"
-                onChange={(e) => { setEmail(e.target.value); if (state === 'error') setState('idle') }}
+                onChange={(e) => { setEmail(e.target.value); setInvalid(false) }}
                 placeholder={footer.newsletter.placeholder}
                 aria-invalid={state === 'error'}
                 aria-describedby={state === 'error' ? 'nl-err' : undefined}
                 className="w-0 min-w-0 flex-1 bg-transparent px-3 text-[15px] outline-none sm:px-4 placeholder:text-fg/70"
               />
-              <button type="submit" className="group flex shrink-0 items-center gap-2 rounded-full bg-fg px-4 py-3 text-sm font-semibold text-bg sm:px-5">
-                {footer.newsletter.button}
+              <button type="submit" disabled={fs.submitting} className="group flex shrink-0 items-center gap-2 rounded-full bg-fg px-4 py-3 text-sm font-semibold text-bg disabled:opacity-70 sm:px-5">
+                {fs.submitting ? nl.sending : nl.button}
                 <Icon name="arrow" size={16} className="transition-transform duration-500 ease-soft group-hover:translate-x-1" />
               </button>
             </motion.form>
@@ -52,7 +57,8 @@ function Newsletter() {
             </motion.div>
           )}
         </AnimatePresence>
-        {state === 'error' && <p id="nl-err" role="alert" className="mt-2 pl-4 text-sm font-semibold">{footer.newsletter.error}</p>}
+        {state === 'error' && <p id="nl-err" role="alert" className="mt-2 pl-4 text-sm font-semibold">{nl.error}</p>}
+        {state !== 'error' && failed && <p role="alert" className="mt-2 pl-4 text-sm font-semibold">{nl.sendError}</p>}
       </div>
     </div>
   )

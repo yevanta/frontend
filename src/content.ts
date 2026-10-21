@@ -37,6 +37,8 @@ export const site = {
   locale: 'en_US',
   /** The live dashboard (external app). */
   dashboardUrl: 'https://central.yevanta.com/',
+  /** Chatwoot live-chat widget (the website token is public by design). Loaded after the page settles. */
+  chat: { baseUrl: 'https://app.chatwoot.com', websiteToken: 'vjiZyz64EAKptrFNBHpotdf2', position: 'right', type: 'standard', launcherTitle: '' },
   year: new Date().getFullYear().toString(),
   meta: {
     homeTitle: 'Yevanta | Business Growth & Pricing Intelligence',
@@ -490,8 +492,13 @@ export const footer = {
     label: 'Email address',
     placeholder: 'you@example.com',
     button: 'Subscribe',
+    sending: 'Subscribing…',
     success: 'You’re on the list!',
     error: 'Please enter a valid email.',
+    sendError: 'Sorry, that didn’t go through. Please try again.',
+    /** Formspree form for newsletter sign-ups. */
+    formspreeId: 'mbgdvzke',
+    emailSubject: 'New newsletter subscriber (yevanta.com)',
   },
   columns: [
     { title: 'Company', links: [

@@ -6,6 +6,7 @@ import { PrefsProvider } from './lib/prefs'
 import { SmoothScroll } from './lib/scroll'
 import { Backdrop } from './components/layout/Backdrop'
 import { CommandPalette } from './components/layout/CommandPalette'
+import { ChatWidget } from './components/layout/ChatWidget'
 import { CookieBanner } from './components/layout/CookieBanner'
 import { Cursor } from './components/layout/Cursor'
 import { Footer } from './components/layout/Footer'
@@ -64,6 +65,7 @@ function Shell() {
         </Routes>
       </AnimatePresence>
       <CookieBanner />
+      <ChatWidget />
       <CommandPalette />
       <Cursor />
     </>
